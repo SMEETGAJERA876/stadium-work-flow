@@ -5,6 +5,12 @@ import {
 } from 'lucide-react';
 import { INCIDENTS } from '../../constants';
 
+/**
+ * IncidentLogView component for tracking and managing security incidents.
+ * Features advanced filtering, sorting, and AI-assisted guidance for operators.
+ * @param {Object} props - Component props.
+ * @param {Function} props.showToast - Callback to trigger global notifications.
+ */
 const IncidentLogView = ({ showToast }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [severityFilter, setSeverityFilter] = useState('all');

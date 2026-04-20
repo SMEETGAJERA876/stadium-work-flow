@@ -8,6 +8,12 @@ import {
 } from 'recharts';
 import { GATES, CROWD_FLOW_DATA, HEATMAP_BLOCKS } from '../../constants';
 
+/**
+ * CrowdControlView component for monitoring venue occupancy and gate density.
+ * Provides real-time heatmap visualizations and gate management controls.
+ * @param {Object} props - Component props.
+ * @param {Object} props.rtData - Real-time data from the WebSocket provider.
+ */
 const CrowdControlView = ({ rtData }) => {
   const { gates: rtGates, flowData: rtFlowData, showToast } = rtData;
   const liveGates = (rtGates && rtGates.length > 0) ? rtGates : GATES;
