@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext, lazy, Suspense } from 'react
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRealtimeServer } from '../useRealtimeServer';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   LayoutDashboard, FileText, Users, Bell, Shield, Settings, Activity, 
   ChevronLeft, Radio, TriangleAlert, RefreshCw, Clock, Zap,
@@ -90,8 +91,8 @@ CustomDropdown.propTypes = {
 };
 
 export default function Dashboard() {
+  const { user, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [user, setUser] = useState(null); 
   const [toast, setToast] = useState(null);
   const [installProgress, setInstallProgress] = useState(null);
   
@@ -119,11 +120,6 @@ export default function Dashboard() {
     }, 150);
   };
 
-  const logout = () => {
-    setUser(null);
-    navigate('/');
-  };
-
   useEffect(() => {
     const path = location.pathname.substring(1);
     const featureMap = {
@@ -143,11 +139,13 @@ export default function Dashboard() {
 
   if (!user) {
     return (
-      <LoginView onLogin={(u) => { setUser(u); navigate('/crowd-control-dashboard'); }} />
+      <Suspense fallback={<LoadingFallback />}>
+        <LoginView />
+      </Suspense>
     );
   }
 
-  const isUser = user.role === 'user';
+  const isUser = false; // Firebase Auth doesn't have roles by default
   const rtData = { ...rt, user, showToast, features, toggleFeature, featuresLoading };
 
   return (
@@ -227,16 +225,26 @@ export default function Dashboard() {
         </nav>
 
         <div className="border-t border-[#1E1E1E] p-3">
-          <div className="flex items-center gap-2.5 group cursor-pointer" onClick={logout} title="Click to logout">
-            <div className="w-7 h-7 rounded-full bg-blue-600/30 border border-blue-600/40 flex items-center justify-center flex-shrink-0 group-hover:bg-red-500/30 group-hover:border-red-500/40 transition-all">
-              <X size={13} className="text-blue-400 group-hover:text-red-400" />
-            </div>
-            {isSidebarOpen && (
-              <div className="min-w-0">
-                <p className="text-[12px] font-semibold text-white truncate">{user.name}</p>
-                <p className="text-[10px] text-[#555] truncate uppercase tracking-wider">{user.role}</p>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={logout}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold hover:bg-red-500/20 transition-all"
+            >
+              <LogIn size={14} className="rotate-180" /> Sign Out
+            </button>
+            <div className="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-[#1A1A1A] border border-[#222]">
+              <div className="w-6 h-6 rounded-lg bg-blue-600/20 border border-blue-600/30 flex items-center justify-center">
+                {user?.photoURL ? (
+                  <img src={user.photoURL} alt="" className="w-full h-full rounded-lg object-cover" />
+                ) : (
+                  <Activity size={12} className="text-blue-400" />
+                )}
               </div>
-            )}
+              <div className="hidden sm:block">
+                <p className="text-[11px] font-bold text-white leading-none">{user?.displayName || 'User'}</p>
+                <p className="text-[9px] text-[#555] font-mono mt-0.5">ADMIN</p>
+              </div>
+            </div>
           </div>
         </div>
         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} aria-label={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"} className="btn-circular absolute -right-3 top-[72px] z-10 w-6 h-6 text-[#666] hover:text-white">
