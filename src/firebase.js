@@ -5,7 +5,7 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 // Using a "demo-" prefix allows us to use Firebase locally without a real project!
 const firebaseConfig = {
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "gen-lang-client-0720316902"
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "stadium-control-flow"
 };
 
 const app = initializeApp(firebaseConfig);
