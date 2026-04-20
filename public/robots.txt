@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /security/
+
+Sitemap: https://stadiumflow.com/sitemap.xml

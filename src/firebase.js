@@ -3,7 +3,7 @@ import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 // Using a "demo-" prefix allows us to use Firebase locally without a real project!
 const firebaseConfig = {
-  projectId: "gen-lang-client-0720316902"
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "gen-lang-client-0720316902"
 };
 
 const app = initializeApp(firebaseConfig);

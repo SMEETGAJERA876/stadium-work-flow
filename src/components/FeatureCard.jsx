@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Settings, Info, Activity, Shield, Bell, PieChart, Users, FileText } from 'lucide-react';
 import ToggleSwitch from './ToggleSwitch';
 
@@ -13,11 +14,18 @@ const ICONS = {
 
 export default function FeatureCard({ id, name, description, enabled, onToggle, onSettings, loading }) {
   return (
-    <div className={`relative group bg-[#141414] border transition-all duration-300 rounded-2xl p-5 ${
-      enabled ? 'border-[#1e293b] shadow-lg shadow-blue-500/5' : 'border-[#1e1e1e] opacity-60'
-    }`}>
+    <div 
+      className={`relative group bg-[#141414] border transition-all duration-300 rounded-2xl p-5 ${
+        enabled ? 'border-[#1e293b] shadow-lg shadow-blue-500/5' : 'border-[#1e1e1e] opacity-60'
+      }`}
+      role="region"
+      aria-labelledby={`feature-title-${id}`}
+    >
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-3 rounded-xl ${enabled ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20' : 'bg-[#1a1a1a] text-[#444] border border-[#222]'}`}>
+        <div 
+          className={`p-3 rounded-xl ${enabled ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20' : 'bg-[#1a1a1a] text-[#444] border border-[#222]'}`}
+          aria-hidden="true"
+        >
           {ICONS[id] || <Info size={20} />}
         </div>
         <ToggleSwitch enabled={enabled} onToggle={onToggle} loading={loading} />
@@ -25,8 +33,11 @@ export default function FeatureCard({ id, name, description, enabled, onToggle, 
 
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
-          <h3 className="text-[15px] font-bold text-white tracking-tight">{name}</h3>
-          <span className={`w-1.5 h-1.5 rounded-full ${enabled ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></span>
+          <h3 id={`feature-title-${id}`} className="text-[15px] font-bold text-white tracking-tight">{name}</h3>
+          <span 
+            className={`w-1.5 h-1.5 rounded-full ${enabled ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}
+            aria-label={enabled ? "Feature active" : "Feature inactive"}
+          ></span>
         </div>
         <p className="text-[12px] text-[#555] leading-relaxed">{description}</p>
       </div>
@@ -38,6 +49,7 @@ export default function FeatureCard({ id, name, description, enabled, onToggle, 
         <button 
           onClick={onSettings}
           disabled={!enabled}
+          aria-label={`Settings for ${name}`}
           className="p-2 rounded-lg hover:bg-[#1a1a1a] text-[#444] hover:text-white transition-all disabled:opacity-30 disabled:pointer-events-none"
         >
           <Settings size={14} />
@@ -46,3 +58,13 @@ export default function FeatureCard({ id, name, description, enabled, onToggle, 
     </div>
   );
 }
+
+FeatureCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  enabled: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onSettings: PropTypes.func,
+  loading: PropTypes.bool
+};
