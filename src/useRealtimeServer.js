@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-const WS_URL = window.location.hostname === 'localhost' ? 'ws://localhost:3001' : `${protocol}//${window.location.host}`;
+const WS_URL = window.location.hostname === 'localhost' ? 'ws://localhost:8080' : `${protocol}//${window.location.host}`;
 
 export function useRealtimeServer() {
   const wsRef = useRef(null);
