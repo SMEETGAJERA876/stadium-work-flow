@@ -1,5 +1,7 @@
 # StadiumFlow — Real-Time Venue Crowd Control Dashboard
 
+**Live Demo**: [https://stadium-dashboard-892487943047.europe-west1.run.app](https://stadium-dashboard-892487943047.europe-west1.run.app)
+
 StadiumFlow is a high-performance, modular React application designed for stadium operators to monitor and manage attendee flow, incidents, and venue security in real-time.
 
 ## 🚀 Core Features
