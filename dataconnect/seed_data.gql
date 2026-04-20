@@ -1,0 +1,92 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "This operation is for seeding data and should only be run by authenticated users.") {
+  user_insertMany(data: [
+    {
+      id: "b21a8a3c-9b7e-4d5f-9c0a-0123456789ab",
+      displayName: "Alice Smith",
+      email: "alice.smith@example.com",
+      createdAt: "2023-01-01T10:00:00Z"
+    },
+    {
+      id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      displayName: "Bob Johnson",
+      email: "bob.johnson@example.com",
+      createdAt: "2023-01-02T11:00:00Z"
+    }
+  ])
+  stadium_insertMany(data: [
+    {
+      id: "c1d2e3f4-g5h6-7890-1234-567890abcdef",
+      name: "Grand Arena",
+      location: "Sport City",
+      capacity: 50000,
+      createdAt: "2023-01-03T12:00:00Z"
+    }
+  ])
+  event_insertMany(data: [
+    {
+      id: "e1f2g3h4-i5j6-7890-1234-567890abcdef",
+      name: "Championship Final",
+      startTime: "2023-11-15T18:00:00Z",
+      endTime: "2023-11-15T22:00:00Z",
+      stadiumId: "c1d2e3f4-g5h6-7890-1234-567890abcdef",
+      eventType: "Sports",
+      createdAt: "2023-01-04T13:00:00Z"
+    }
+  ])
+  menuItem_insertMany(data: [
+    {
+      id: "f1g2h3i4-j5k6-7890-1234-567890abcdef",
+      name: "Hot Dog",
+      price: 5.50,
+      stadiumId: "c1d2e3f4-g5h6-7890-1234-567890abcdef",
+      category: "Snacks",
+      createdAt: "2023-01-05T14:00:00Z"
+    },
+    {
+      id: "g1h2i3j4-k5l6-7890-1234-567890abcdef",
+      name: "Soda",
+      price: 3.00,
+      stadiumId: "c1d2e3f4-g5h6-7890-1234-567890abcdef",
+      category: "Drinks",
+      createdAt: "2023-01-06T15:00:00Z"
+    }
+  ])
+  order_insertMany(data: [
+    {
+      id: "h1i2j3k4-l5m6-7890-1234-567890abcdef",
+      userId: "b21a8a3c-9b7e-4d5f-9c0a-0123456789ab",
+      eventId: "e1f2g3h4-i5j6-7890-1234-567890abcdef",
+      totalAmount: 8.50,
+      status: "completed",
+      orderType: "pickup",
+      createdAt: "2023-11-15T19:00:00Z"
+    }
+  ])
+  orderItem_insertMany(data: [
+    {
+      orderId: "h1i2j3k4-l5m6-7890-1234-567890abcdef",
+      menuItemId: "f1g2h3i4-j5k6-7890-1234-567890abcdef",
+      quantity: 1,
+      unitPrice: 5.50
+    },
+    {
+      orderId: "h1i2j3k4-l5m6-7890-1234-567890abcdef",
+      menuItemId: "g1h2i3j4-k5l6-7890-1234-567890abcdef",
+      quantity: 1,
+      unitPrice: 3.00
+    }
+  ])
+  ticket_insertMany(data: [
+    {
+      id: "i1j2k3l4-m5n6-7890-1234-567890abcdef",
+      userId: "b21a8a3c-9b7e-4d5f-9c0a-0123456789ab",
+      eventId: "e1f2g3h4-i5j6-7890-1234-567890abcdef",
+      seatSection: "Lower Deck",
+      seatRow: "A",
+      seatNumber: "12",
+      price: 150.00,
+      status: "valid",
+      createdAt: "2023-01-07T16:00:00Z"
+    }
+  ])
+}

@@ -1,0 +1,52 @@
+query ListAllStadiums @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  stadiums {
+    id
+    name
+    location
+    capacity
+  }
+}
+
+query GetUserOrders @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  orders(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    totalAmount
+    status
+    event {
+      name
+      stadium {
+        name
+      }
+    }
+    orderItems {
+      quantity
+      unitPrice
+      menuItem {
+        name
+      }
+    }
+  }
+}
+
+mutation CreateNewUser($displayName: String!, $email: String!, $photoUrl: String) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  user_insert(data: {
+    id_expr: "uuidV4()",
+    displayName: $displayName,
+    email: $email,
+    createdAt_expr: "request.time",
+    photoUrl: $photoUrl
+  }) {
+    id
+  }
+}
+
+mutation AddMenuItemToOrder($orderId: UUID!, $menuItemId: UUID!, $quantity: Int!, $unitPrice: Float!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  orderItem_insert(data: {
+    orderId: $orderId,
+    menuItemId: $menuItemId,
+    quantity: $quantity,
+    unitPrice: $unitPrice
+  }) {
+    id
+  }
+}

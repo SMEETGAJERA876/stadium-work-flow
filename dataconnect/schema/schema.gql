@@ -1,0 +1,71 @@
+type User @table {
+  displayName: String!
+  createdAt: Timestamp!
+  email: String!
+  photoUrl: String
+  favoriteStadiums: [UUID]
+  favoriteTeams: [UUID]
+}
+
+type Stadium @table {
+  name: String!
+  location: String!
+  capacity: Int!
+  createdAt: Timestamp!
+  description: String
+  imageUrl: String
+  mapUrl: String
+}
+
+type Event @table {
+  name: String!
+  startTime: Timestamp!
+  endTime: Timestamp!
+  stadium: Stadium!
+  createdAt: Timestamp!
+  description: String
+  eventType: String
+  homeTeamId: UUID
+  awayTeamId: UUID
+}
+
+type Ticket @table {
+  user: User!
+  event: Event!
+  seatSection: String!
+  seatRow: String!
+  seatNumber: String!
+  price: Float!
+  status: String!
+  createdAt: Timestamp!
+  barcodeUrl: String
+}
+
+type Order @table {
+  user: User!
+  event: Event!
+  totalAmount: Float!
+  status: String!
+  orderType: String!
+  createdAt: Timestamp!
+  pickupTime: Timestamp
+  pickupLocation: String
+}
+
+type MenuItem @table {
+  name: String!
+  price: Float!
+  stadium: Stadium!
+  category: String!
+  createdAt: Timestamp!
+  description: String
+  imageUrl: String
+  availableDuringEventTypes: [String]
+}
+
+type OrderItem @table {
+  order: Order!
+  menuItem: MenuItem!
+  quantity: Int!
+  unitPrice: Float!
+}

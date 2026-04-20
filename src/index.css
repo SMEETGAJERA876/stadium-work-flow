@@ -1,0 +1,186 @@
+:root {
+  --bg-main: #0D0D0D;
+  --bg-side: #111111;
+  --bg-card: #141414;
+  --bg-item: #1A1A1A;
+  --border: #1E1E1E;
+  --text-main: #F5F5F5;
+  --text-muted: #888;
+  --accent: #2563eb;
+}
+
+.theme-light {
+  --bg-main: #f8fafc;
+  --bg-side: #ffffff;
+  --bg-card: #ffffff;
+  --bg-item: #f1f5f9;
+  --border: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --accent: #2563eb;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Semantic Background Classes */
+.bg-main { background-color: var(--bg-main) !important; }
+.bg-side { background-color: var(--bg-side) !important; }
+.bg-card { background-color: var(--bg-card) !important; }
+.bg-item { background-color: var(--bg-item) !important; }
+
+/* Border and Text Overrides for Light Mode */
+.theme-light .border-main { border-color: var(--border) !important; }
+.theme-light .text-main { color: var(--text-main) !important; }
+.theme-light .text-muted { color: var(--text-muted) !important; }
+
+/* Premium Button Styles */
+.btn-premium {
+  transition: all 150ms;
+}
+.btn-premium:active { transform: scale(0.95); }
+.btn-premium:disabled { opacity: 0.5; pointer-events: none; }
+
+.btn-sidebar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 200ms;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-sidebar-active {
+  background-color: rgba(37, 99, 235, 0.3);
+  color: #60a5fa;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4), 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+}
+
+.btn-sidebar-inactive {
+  color: #888;
+}
+.btn-sidebar-inactive:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-global {
+  background-color: #111;
+  border: 1px solid #1e293b;
+  color: #94a3b8;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 150ms;
+}
+.btn-global:hover {
+  color: white;
+  border-color: rgba(59, 130, 246, 0.5);
+}
+.btn-global:active { transform: scale(0.95); }
+
+/* Custom Dropdown Styles */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  background-color: rgba(15, 23, 42, 0.2);
+  border: 1px solid #1e293b;
+  font-size: 12px;
+  color: #94a3b8;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 150ms;
+  cursor: pointer;
+  min-width: 150px;
+  justify-content: space-between;
+}
+.dropdown-trigger:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.375rem;
+  width: 100%;
+  background-color: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.dropdown-item {
+  padding: 0.625rem 0.75rem;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  transition: all 150ms;
+}
+.dropdown-item:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+.dropdown-item-active {
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+}
+
+/* Scanning Animation */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3b82f6;
+  box-shadow: 0 0 10px #3b82f6;
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.pulse-blue {
+  animation: pulse-blue-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-blue-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+}
+
+/* Sorting indicators */
+.sort-indicator {
+  transition: transform 200ms;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
